@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: 'https://seanimhof.github.io/epd-frontend/dist/',
+  base: '/epd-frontend/',
   plugins: [
     vue(),
     vueDevTools(),
