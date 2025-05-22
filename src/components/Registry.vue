@@ -9,7 +9,7 @@ const CONTRACT_ADDRESS = addresses.registry
 const epdAhvSearch = ref('756.1234.5678.90')
 const epdBirthdateSearch = ref('01.01.2002')
 const epdId = ref('')
-const searchResult = ref<[string, string]| null>(null);
+const searchResult = ref<[string, string]| null>(null)
 
 const epdAhvInsert = ref('')
 const epdBirthdateInsert = ref('')
@@ -53,7 +53,7 @@ const searchEPD = async () => {
 const insertEPD = async () => {
   if (!contract) await init()
   let hash = await sha256(epdAhvInsert.value + epdBirthdateInsert.value)
-  hash = '0x' + hash;
+  hash = '0x' + hash
   try {
     const tx = await contract.insertEPD(hash, epdProviderNameInsert.value, epdContactInfoInsert.value)
     const res = await tx.wait()
@@ -74,7 +74,7 @@ const insertEPD = async () => {
 const updateEPD = async () => { 
   if (!contract) await init()
   let hash = await sha256(epdAhvUpdate.value + epdBirthdateUpdate.value)
-  hash = '0x' + hash;
+  hash = '0x' + hash
   const tx = await contract.updateEPD(hash, epdProviderNameUpdate.value, epdContactInfoUpdate.value)
   const res = await tx.wait()
 }
@@ -82,25 +82,25 @@ const updateEPD = async () => {
 const deleteEPD = async () => { 
 if (!contract) await init()
   let hash = await sha256(epdAhvDelete.value + epdBirthdateDelete.value)
-  hash = '0x' + hash;
+  hash = '0x' + hash
   const tx = await contract.deleteEPD(hash)
   const res = await tx.wait()
 }
 
 watch([epdAhvDelete, epdBirthdateDelete], async ([ahv, birthdate]) => {
   if (!ahv || !birthdate) {
-    epdIdDelete.value = '';
-    return;
+    epdIdDelete.value = ''
+    return
   }
-  epdIdDelete.value = await sha256(ahv + birthdate);
+  epdIdDelete.value = await sha256(ahv + birthdate)
 });
 
 async function sha256(message: string) {
-  const msgBuffer = new TextEncoder().encode(message);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  return hashHex;
+  const msgBuffer = new TextEncoder().encode(message)
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer)
+  const hashArray = Array.from(new Uint8Array(hashBuffer))
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+  return hashHex
 }
 
 </script>

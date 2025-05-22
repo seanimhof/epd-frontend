@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useBlockchain } from '../composables/useBlockchain';
+import { computed } from 'vue'
+import { useBlockchain } from '../composables/useBlockchain'
+import addresses from '../contracts/addresses.json'
 
-const CONTRACT_ADDRESS = import.meta.env.VITE_CA
+const CONTRACT_ADDRESS = addresses.registry
 
-const { entries } = useBlockchain();
+const { entries } = useBlockchain()
 
 const sortedEntries = computed(() => {
   return [...entries.value].sort((a, b) => a.blockTimestamp - b.blockTimestamp)
