@@ -2,8 +2,9 @@
 import { ref, watch } from 'vue'
 import { BrowserProvider, Contract } from 'ethers'
 import abi from '../contracts/registry_abi.json'
+import addresses from '../contracts/addresses.json'
 
-const CONTRACT_ADDRESS = import.meta.env.VITE_CA
+const CONTRACT_ADDRESS = addresses.registry
 
 const epdAhvSearch = ref('756.1234.5678.90')
 const epdBirthdateSearch = ref('01.01.2002')

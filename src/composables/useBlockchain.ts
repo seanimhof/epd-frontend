@@ -1,9 +1,10 @@
 import { ref, onMounted, onUnmounted } from 'vue';
-import { Contract, BrowserProvider, Log } from 'ethers';
+import { Contract, BrowserProvider } from 'ethers';
 import abi from '../contracts/registry_abi.json';
+import addresses from '../contracts/addresses.json';
 
-const CONTRACT_ADDRESS = import.meta.env.VITE_CA;
-const CONTRACT_ABI = abi;
+const CONTRACT_ADDRESS = addresses.registry
+const CONTRACT_ABI = abi
 
 type EPDEvent = {
   eventType: string;
