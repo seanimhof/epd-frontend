@@ -129,16 +129,16 @@ async function sha256(message: string) {
         <input v-model="epdAhvInsert" placeholder="AHV" class="border px-3 py-2 w-full rounded mb-4 text-white" />
         <input v-model="epdBirthdateInsert" placeholder="Birthdate" class="border px-3 py-2 w-full rounded mb-4 text-white" />
         <input v-model="epdProviderNameInsert" placeholder="EPD Provider" class="border px-3 py-2 w-full rounded mb-4 text-white" />
-        <input v-model="epdContactInfoInsert" placeholder="EPD Provider" class="border px-3 py-2 w-full rounded mb-4 text-white" />
+        <input v-model="epdContactInfoInsert" placeholder="EPD Contact Info" class="border px-3 py-2 w-full rounded mb-4 text-white" />
         <button @click="insertEPD" class="bg-blue-500 text-white px-4 py-2 rounded w-full">Insert</button>
       </div>
 
-       <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+      <div class="bg-gray-800 p-6 rounded-lg shadow-md">
         <h2 class="text-xl text-center  font-semibold mb-4 pb-2">Update</h2>
         <input v-model="epdAhvUpdate" placeholder="AHV" class="border px-3 py-2 w-full rounded mb-4 text-white" />
         <input v-model="epdBirthdateUpdate" placeholder="Birthdate" class="border px-3 py-2 w-full rounded mb-4 text-white" />
         <input v-model="epdProviderNameUpdate" placeholder="EPD Provider" class="border px-3 py-2 w-full rounded mb-4 text-white" />
-        <input v-model="epdContactInfoUpdate" placeholder="EPD Provider" class="border px-3 py-2 w-full rounded mb-4 text-white" />
+        <input v-model="epdContactInfoUpdate" placeholder="EPD Contact Info" class="border px-3 py-2 w-full rounded mb-4 text-white" />
         <button @click="updateEPD" class="bg-blue-500 text-white px-4 py-2 rounded w-full">Update</button>
       </div>
 

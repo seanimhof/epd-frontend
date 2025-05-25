@@ -19,12 +19,14 @@ const entries = ref<EPDEvent[]>([])
 let contract: Contract | null = null
 let provider: BrowserProvider | null = null
 
-export function useBlockchain() {
+export function useRegistry() {
   const loadEntries = async () => {
     if (!window.ethereum) {
       console.error("Wallet not found")
       return
     }
+    
+    if(entries.value.length > 0) return
 
     provider = new BrowserProvider(window.ethereum)
     const signer = await provider.getSigner()
