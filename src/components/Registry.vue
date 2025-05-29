@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { BrowserProvider, Contract } from 'ethers'
+import { BrowserProvider, Contract, keccak256, toUtf8Bytes } from 'ethers'
 import abi from '../contracts/registry_abi.json'
 import addresses from '../contracts/addresses.json'
 
@@ -38,8 +38,8 @@ const init = async () => {
 
 const searchEPD = async () => {
   if (!contract) await init()
-  const hash = await sha256(epdAhvSearch.value + epdBirthdateSearch.value)
-  epdId.value = '0x' + hash
+  const hash = await keccak256(toUtf8Bytes(epdAhvSearch.value + epdBirthdateSearch.value))
+  epdId.value = hash
   let value, value2: string
   try {
     [value, value2] = await contract.searchEPD(epdId.value)
@@ -52,8 +52,7 @@ const searchEPD = async () => {
 
 const insertEPD = async () => {
   if (!contract) await init()
-  let hash = await sha256(epdAhvInsert.value + epdBirthdateInsert.value)
-  hash = '0x' + hash
+  let hash = await keccak256(toUtf8Bytes(epdAhvInsert.value + epdBirthdateInsert.value))
   try {
     const tx = await contract.insertEPD(hash, epdProviderNameInsert.value, epdContactInfoInsert.value)
     const res = await tx.wait()
@@ -73,16 +72,14 @@ const insertEPD = async () => {
 
 const updateEPD = async () => { 
   if (!contract) await init()
-  let hash = await sha256(epdAhvUpdate.value + epdBirthdateUpdate.value)
-  hash = '0x' + hash
+  let hash = await keccak256(toUtf8Bytes(epdAhvUpdate.value + epdBirthdateUpdate.value))
   const tx = await contract.updateEPD(hash, epdProviderNameUpdate.value, epdContactInfoUpdate.value)
   const res = await tx.wait()
 }
 
 const deleteEPD = async () => { 
 if (!contract) await init()
-  let hash = await sha256(epdAhvDelete.value + epdBirthdateDelete.value)
-  hash = '0x' + hash
+  let hash = await keccak256(toUtf8Bytes(epdAhvDelete.value + epdBirthdateDelete.value))
   const tx = await contract.deleteEPD(hash)
   const res = await tx.wait()
 }
@@ -92,16 +89,8 @@ watch([epdAhvDelete, epdBirthdateDelete], async ([ahv, birthdate]) => {
     epdIdDelete.value = ''
     return
   }
-  epdIdDelete.value = await sha256(ahv + birthdate)
+  epdIdDelete.value = await keccak256(toUtf8Bytes(ahv + birthdate))
 });
-
-async function sha256(message: string) {
-  const msgBuffer = new TextEncoder().encode(message)
-  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer)
-  const hashArray = Array.from(new Uint8Array(hashBuffer))
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
-  return hashHex
-}
 
 </script>
 
